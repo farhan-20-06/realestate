@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="property-card">
+                <h2>{{ property.property_type }}</h2>
+                <div class="property-image-container">
+                    <img src="https://via.placeholder.com/800x400" alt="Property Image" class="property-image">
+                </div>
+                <div class="property-details">
+                    <h4>Location: {{ property.location }}</h4>
+                    <p><strong>Land Size:</strong> {{ property.land_size_acres }} acres</p>
+                    <p><strong>Asking Price:</strong> ${{ property.asking_price }}</p>
+                    <p><strong>Description:</strong> {{ property.description|default:"No description available" }}</p>
+                    <p><strong>Posted:</strong> {{ property.created_at|date:"F j, Y" }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="property-card">
+                <h3>Contact Seller</h3>
+                <form onsubmit="return contactSeller()">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function contactSeller() {
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const message = document.getElementById('message').value;
+    
+    if (name && phone && message) {
+        alert("Thank you! Your message has been sent to the seller.");
+        return false; // Prevent form submission
+    }
+    return false;
+}
+</script>
+{% endblock %}
